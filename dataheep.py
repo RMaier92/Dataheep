@@ -59,30 +59,6 @@ class DataheepBackend:
 
         return _var_registry_serialized
 
-    def object_save(self, file_path: Path) -> None:
-        """[summary]
-
-        Args:
-            file_path (Path): [description]
-        """
-
-        serialized_var_registry = self.__object_serialize(self._var_registry)
-
-        with open( file_path, "w" ) as file_ref:
-            json.dump( serialized_var_registry, file_ref )
-
-    def object_load(self, file_path: Path) -> None:
-        """[summary]
-
-        Args:
-            file_path (Path): [description]
-        """
-
-        with open( Path(file_path), "r") as f:
-            _var_registry_raw = ""
-            _var_registry_raw = json.load(f) 
-        self._var_registry = self.__object_deserialize(_var_registry_raw)
-
     def __object_deserialize(self, serialized_str: str) -> None:
         """[summary]
 
@@ -120,17 +96,29 @@ class DataheepBackend:
                 raise NotImplementedError( f"Datatype not implemented from Dataheep: {content['type']}")
         return serialized_str
 
-    def valid_obj_path(self, file_path: Path) -> bool:
+    def object_save(self, file_path: Path) -> None:
         """[summary]
 
         Args:
             file_path (Path): [description]
-
-        Returns:
-            bool: [description]
         """
 
-        return os.path.exists( os.path.dirname( file_path ) )
+        serialized_var_registry = self.__object_serialize(self._var_registry)
+
+        with open( file_path, "w" ) as file_ref:
+            json.dump( serialized_var_registry, file_ref )
+
+    def object_load(self, file_path: Path) -> None:
+        """[summary]
+
+        Args:
+            file_path (Path): [description]
+        """
+
+        with open( Path(file_path), "r") as f:
+            self._var_registry = self.__object_deserialize(
+                json.load(f) 
+            )
 
     def get_attribute(self, name):
         """[summary]
@@ -294,7 +282,7 @@ class Dataheep:
             ValueError: [description]
         """
 
-        if obj_ref.backend.valid_obj_path(file_path):
+        if os.path.exists( os.path.dirname( file_path ) ):
             try:
                 obj_ref.backend.object_save(file_path)
             except:
@@ -452,4 +440,5 @@ class Dataheep:
 
 
 
-dataheep = Dataheep.object_create()
+#dataheep = Dataheep.object_create()
+
