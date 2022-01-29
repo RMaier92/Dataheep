@@ -7,6 +7,8 @@ import os
 import json
 import numpy as np
 
+
+class DataheepBackend:
     """[summary]
     """
     def __init__(self) -> None:
@@ -276,7 +278,7 @@ class Dataheep:
         """
 
         obj_ref = Dataheep.__new__(Dataheep)
-        obj_ref.backend = backend()
+        obj_ref.backend = DataheepBackend()
         return obj_ref
 
     @staticmethod
@@ -312,7 +314,7 @@ class Dataheep:
         """
 
         obj_ref = Dataheep.__new__(Dataheep)
-        obj_ref.backend = backend()
+        obj_ref.backend = DataheepBackend()
 
         obj_ref.backend.object_load(file_path)
         return obj_ref
