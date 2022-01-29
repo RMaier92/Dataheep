@@ -82,10 +82,17 @@ import numpy as np
             
         self._var_registry = self.__object_deserialize(_var_registry_raw)
 
-    # Todo: pd.Dataframe in dict currently not workin
+        """[summary]
 
+        Args:
+            serialized_str (str): [description]
 
-    def __object_deserialize(self, serialized_str: str) -> None:
+        Raises:
+            NotImplementedError: [description]
+
+        Returns:
+            [type]: [description]
+        """
 
         for key, content in serialized_str["data_properties"].items():
             
