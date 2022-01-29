@@ -33,7 +33,7 @@ Data scientists and analysts, cleaning and preparing their data for further pred
     
     
 
-## How to use
+## How to use (full example is under sample.ipynb (jupyter notebook))
 ```python
 import pandas as pd
 from dataheep import Dataheep
@@ -74,3 +74,6 @@ Since all preparation step take some time, the dataheep can be saved
 """
 
 Dataheep.object_save(dhp_oil, "./oil.dhp")
+
+
+
