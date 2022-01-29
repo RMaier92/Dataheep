@@ -79,8 +79,8 @@ class DataheepBackend:
         """
 
         with open( Path(file_path), "r") as f:
+            _var_registry_raw = ""
             _var_registry_raw = json.load(f) 
-            
         self._var_registry = self.__object_deserialize(_var_registry_raw)
 
     def __object_deserialize(self, serialized_str: str) -> None:
