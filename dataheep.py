@@ -16,6 +16,7 @@ import numpy as np
             },
             "data_properties": {}
         }
+
     def __object_serialize(self, var_registry: str) -> str:
         """[summary]
 
@@ -34,9 +35,6 @@ import numpy as np
             "config": var_registry["config"],
             "data_properties": {}
         }
-        print("---")
-        print(_var_registry_serialized)
-        print("---")
 
         for key, content in var_registry["data_properties"].items():
             
@@ -54,12 +52,12 @@ import numpy as np
 
             elif( content["value"] == None ):   
                 pass
-                #raise NotImplementedError
             else:
                 raise NotImplementedError( f"Datatype currently not supported from Dataheep: {type(content['value'])}")
 
         return _var_registry_serialized
 
+    def object_save(self, file_path: Path) -> None:
         """[summary]
 
         Args:
@@ -71,6 +69,7 @@ import numpy as np
         with open( file_path, "w" ) as file_ref:
             json.dump( serialized_var_registry, file_ref )
 
+    def object_load(self, file_path: Path) -> None:
         """[summary]
 
         Args:
@@ -82,6 +81,7 @@ import numpy as np
             
         self._var_registry = self.__object_deserialize(_var_registry_raw)
 
+    def __object_deserialize(self, serialized_str: str) -> None:
         """[summary]
 
         Args:
@@ -148,6 +148,7 @@ import numpy as np
         else:
             raise ValueError("Value not there")
 
+    def set_attribute(self, name: str, value: any) -> None:
         """[summary]
 
         Args:
@@ -164,6 +165,7 @@ import numpy as np
         else:
             raise ValueError("Value not there")
 
+    def add_attribute(self, name: str, value: any) -> None:
         """[summary]
 
         Args:
@@ -183,6 +185,7 @@ import numpy as np
                 "lastUpdated": str(datetime.now())
             }
 
+    def remove_attribute(self, name: str) -> None:
         """[summary]
 
         Args:
@@ -208,6 +211,7 @@ import numpy as np
             "Attributes": list(self._var_registry["data_properties"].keys())   
         }
     
+    def attribute_info(self, name: str) -> None:
         """[summary]
 
         Args:
@@ -314,6 +318,7 @@ class Dataheep:
         return obj_ref
 
     @staticmethod
+    def object_info(obj_ref: Dataheep) -> any:
         """[summary]
 
         Args:
@@ -357,6 +362,7 @@ class Dataheep:
         return obj_ref
 
     @staticmethod
+    def attribute_set(obj_ref: Dataheep,  name: str, value: any) -> None:
         """[summary]
 
         Args:
@@ -396,6 +402,7 @@ class Dataheep:
         return obj_ref.backend.attribute_info(name)
 
     @staticmethod
+    def object_autosave(enabled: bool, file_path: Path, parallel_save: bool = False) -> None:
         """[summary]
 
         Args:
@@ -410,6 +417,7 @@ class Dataheep:
         raise NotImplementedError
 
     @staticmethod
+    def object_history(obj_ref: Dataheep) -> any:
         """[summary]
 
         Args:
